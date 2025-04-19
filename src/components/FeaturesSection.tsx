@@ -1,11 +1,10 @@
-
 import { FileText, Upload, Calculator, CheckCircle, Download, Shield } from 'lucide-react';
 
 const features = [
   {
     icon: FileText,
     title: "DSF Système Normal & SMT",
-    description: "Génération automatique des DSF conformes aux modèles officiels de la DGI, pour les régimes Normal et SMT."
+    description: "Génération automatique des DSF conformes aux modèles officiels de la DGI, pour le Système Normal et le SMT."
   },
   {
     icon: Upload,
