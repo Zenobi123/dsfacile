@@ -23,8 +23,8 @@ const features = [
   },
   {
     icon: Download,
-    title: "Export PDF",
-    description: "Générez des documents PDF prêts à l'emploi, conformes aux exigences de présentation de la DGI."
+    title: "Export XLSX",
+    description: "Générez des documents XLSX prêts à l'emploi, conformes aux exigences de présentation de la DGI."
   },
   {
     icon: Shield,
