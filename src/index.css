@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -96,6 +99,30 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-poppins;
   }
+}
+
+.feature-icon {
+  @apply w-16 h-16 bg-accent-extraLight rounded-full flex items-center justify-center mb-5;
+}
+
+.pricing-tab {
+  @apply px-4 py-2 bg-gray-100 cursor-pointer transition-colors;
+}
+
+.pricing-tab.active {
+  @apply bg-accent text-white;
+}
+
+.plan-feature i {
+  @apply text-accent mr-2;
+}
+
+.dot {
+  @apply w-3 h-3 rounded-full bg-gray-300 mx-1 cursor-pointer transition-colors;
+}
+
+.dot.active {
+  @apply bg-primary;
 }
