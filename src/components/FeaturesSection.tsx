@@ -4,7 +4,7 @@ import { FileText, Upload, Calculator, CheckCircle, Download, Shield } from 'luc
 const features = [
   {
     icon: FileText,
-    title: "DSF Normale & SMT",
+    title: "DSF Système Normal & SMT",
     description: "Génération automatique des DSF conformes aux modèles officiels de la DGI, pour les régimes Normal et SMT."
   },
   {
