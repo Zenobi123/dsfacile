@@ -1,14 +1,14 @@
 
-import { FileInvoice, CloudUpload, Calculator, CheckCircle, Download, ShieldAlert } from 'lucide-react';
+import { FileText, Upload, Calculator, CheckCircle, Download, Shield } from 'lucide-react';
 
 const features = [
   {
-    icon: FileInvoice,
+    icon: FileText,
     title: "DSF Normale & SMT",
     description: "Génération automatique des DSF conformes aux modèles officiels de la DGI, pour les régimes Normal et SMT."
   },
   {
-    icon: CloudUpload,
+    icon: Upload,
     title: "Import de données",
     description: "Importez facilement vos balances comptables et autres données financières depuis Excel ou CSV."
   },
@@ -28,7 +28,7 @@ const features = [
     description: "Générez des documents PDF prêts à l'emploi, conformes aux exigences de présentation de la DGI."
   },
   {
-    icon: ShieldAlert,
+    icon: Shield,
     title: "Sécurité des données",
     description: "Vos données financières sont chiffrées et sécurisées, avec un accès strictement contrôlé."
   }
