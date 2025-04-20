@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Menu } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,9 +14,9 @@ const Header = () => {
   return (
     <header className="bg-primary fixed w-full top-0 z-50 shadow-md">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <a href="#" className="text-2xl font-bold text-white">
+        <Link to="/" className="text-2xl font-bold text-white">
           DSF<span className="text-accent">acile</span>
-        </a>
+        </Link>
         
         <div className="lg:hidden text-white" onClick={toggleMenu}>
           <Menu />
@@ -28,9 +29,11 @@ const Header = () => {
             <li><a href="#pricing" className="text-white hover:text-accent transition-colors">Tarifs</a></li>
             <li><a href="#faq" className="text-white hover:text-accent transition-colors">FAQ</a></li>
             <li>
-              <Button variant="outline" className="border-accent text-accent hover:bg-accent hover:text-white">
-                Connexion
-              </Button>
+              <Link to="/login">
+                <Button variant="outline" className="border-accent text-accent hover:bg-accent hover:text-white">
+                  Connexion
+                </Button>
+              </Link>
             </li>
           </ul>
         </nav>
