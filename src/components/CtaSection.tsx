@@ -11,7 +11,7 @@ const CtaSection = () => {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button className="bg-accent hover:bg-accent-light text-white">
-            Essayer gratuitement
+            Commencer maintenant
           </Button>
           <ContactForm 
             trigger={
