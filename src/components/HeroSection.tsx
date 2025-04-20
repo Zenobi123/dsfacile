@@ -1,17 +1,18 @@
+
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
+
 const HeroSection = () => {
-  const {
-    toast
-  } = useToast();
+  const { toast } = useToast();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [company, setCompany] = useState("");
   const [open, setOpen] = useState(false);
+
   const handleDemoRequest = (e: React.FormEvent) => {
     e.preventDefault();
     toast({
@@ -20,6 +21,7 @@ const HeroSection = () => {
     });
     setOpen(false);
   };
+
   return <section className="bg-gradient-to-r from-primary to-secondary pt-32 pb-20 text-white relative overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-2xl">
@@ -60,7 +62,7 @@ const HeroSection = () => {
                 </form>
               </DialogContent>
             </Dialog>
-            <Button variant="outline" className="border-white hover:bg-white/20 hover:border-white/80 transition-colors duration-300 text-gray-600">
+            <Button variant="outline" className="border-accent bg-white/80 hover:bg-accent/10 text-primary font-medium">
               En savoir plus
             </Button>
           </div>
@@ -71,4 +73,5 @@ const HeroSection = () => {
       </div>
     </section>;
 };
+
 export default HeroSection;
