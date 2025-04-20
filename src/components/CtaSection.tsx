@@ -1,6 +1,5 @@
 
 import { Button } from "@/components/ui/button";
-import ContactForm from "./ContactForm";
 
 const CtaSection = () => {
   return <section className="py-16 bg-gradient-to-r from-secondary to-primary text-white">
@@ -13,13 +12,9 @@ const CtaSection = () => {
           <Button className="bg-accent hover:bg-accent-light text-white">
             Essayer gratuitement
           </Button>
-          <ContactForm 
-            trigger={
-              <Button variant="outline" className="border-accent bg-white/80 hover:bg-accent/10 text-primary font-medium">
-                Nous contacter
-              </Button>
-            } 
-          />
+          <Button variant="outline" className="border-accent bg-white/80 hover:bg-accent/10 text-primary font-medium">
+            Nous contacter
+          </Button>
         </div>
       </div>
     </section>;
