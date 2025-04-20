@@ -1,6 +1,8 @@
+
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Check, X } from 'lucide-react';
+
 const PricingSection = () => {
   const [activePeriod, setActivePeriod] = useState('standard');
   return <section id="pricing" className="py-20">
@@ -27,7 +29,7 @@ const PricingSection = () => {
           <div className="w-full md:w-72 bg-white rounded-lg shadow-md p-6 transition-transform hover:scale-105">
             <h3 className="text-xl font-bold text-primary mb-4">Starter</h3>
             <div className="text-4xl font-bold text-primary-dark mb-1">
-              150 000 <span className="text-base font-normal text-gray-500">F CFA/an</span>
+              50 000 <span className="text-base font-normal text-gray-500">F CFA/an</span>
             </div>
             <div className="h-64 py-6">
               <div className="mb-3 flex items-center">
@@ -60,7 +62,7 @@ const PricingSection = () => {
             </div>
             <h3 className="text-xl font-bold text-primary mb-4">Business</h3>
             <div className="text-4xl font-bold text-primary-dark mb-1">
-              300 000 <span className="text-base font-normal text-gray-500">F CFA/an</span>
+              125 000 <span className="text-base font-normal text-gray-500">F CFA/an</span>
             </div>
             <div className="h-64 py-6">
               <div className="mb-3 flex items-center">
@@ -136,3 +138,4 @@ const PricingSection = () => {
     </section>;
 };
 export default PricingSection;
+
