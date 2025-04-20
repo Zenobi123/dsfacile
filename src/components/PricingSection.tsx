@@ -1,10 +1,13 @@
+
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Check, X } from 'lucide-react';
 
 const PricingSection = () => {
   const [activePeriod, setActivePeriod] = useState('standard');
-  return <section id="pricing" className="py-20">
+  
+  return (
+    <section id="pricing" className="py-20">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">Nos tarifs</h2>
@@ -25,6 +28,7 @@ const PricingSection = () => {
         </div>
         
         <div className="flex flex-wrap justify-center gap-8">
+          {/* Starter Plan */}
           <div className="w-full md:w-72 bg-white rounded-lg shadow-md p-6 transition-transform hover:scale-105">
             <h3 className="text-xl font-bold text-primary mb-4">Starter</h3>
             <div className="text-4xl font-bold text-primary-dark mb-1">
@@ -55,6 +59,7 @@ const PricingSection = () => {
             <Button className="w-full">Commencer</Button>
           </div>
           
+          {/* Business Plan */}
           <div className="w-full md:w-72 bg-white rounded-lg shadow-md p-6 border-2 border-accent relative transition-transform hover:scale-105">
             <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-accent text-white px-4 py-1 rounded-full text-sm font-semibold">
               Plus populaire
@@ -92,17 +97,18 @@ const PricingSection = () => {
             <Button className="w-full bg-accent hover:bg-secondary">Commencer</Button>
           </div>
           
+          {/* Enterprise Plan */}
           <div className="w-full md:w-72 bg-white rounded-lg shadow-md p-6 transition-transform hover:scale-105">
             <h3 className="text-xl font-bold text-primary mb-4">Enterprise</h3>
             <div className="text-4xl font-bold text-primary-dark mb-1">
-            <Button 
-              variant="outline" 
-              className="w-full border-primary text-primary hover:bg-primary hover:text-white"
-            >
-              Contacter notre équipe
-            </Button>
-          </div>
-          <div className="h-64 py-6">
+              <Button 
+                variant="outline" 
+                className="w-full border-primary text-primary hover:bg-primary hover:text-white"
+              >
+                Contacter notre équipe
+              </Button>
+            </div>
+            <div className="h-64 py-6">
               <div className="mb-3 flex items-center">
                 <Check className="text-accent mr-2 w-5 h-5" />
                 <span>Entreprises illimitées</span>
@@ -117,8 +123,7 @@ const PricingSection = () => {
               </div>
               <div className="mb-3 flex items-center">
                 <Check className="text-accent mr-2 w-5 h-5" />
-                <span>Export XLSX
-              </span>
+                <span>Export XLSX</span>
               </div>
               <div className="mb-3 flex items-center">
                 <Check className="text-accent mr-2 w-5 h-5" />
@@ -133,8 +138,11 @@ const PricingSection = () => {
                 <span>API pour intégration</span>
               </div>
             </div>
+          </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default PricingSection;
