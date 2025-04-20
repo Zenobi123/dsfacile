@@ -22,6 +22,10 @@ const HeroSection = () => {
     setOpen(false);
   };
 
+  const scrollToFAQ = () => {
+    document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return <section className="bg-gradient-to-r from-primary to-secondary pt-32 pb-20 text-white relative overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-2xl">
@@ -62,7 +66,11 @@ const HeroSection = () => {
                 </form>
               </DialogContent>
             </Dialog>
-            <Button variant="outline" className="border-accent bg-white/80 hover:bg-accent/10 text-primary font-medium">
+            <Button 
+              variant="outline" 
+              className="border-accent bg-white/80 hover:bg-accent/10 text-primary font-medium"
+              onClick={scrollToFAQ}
+            >
               En savoir plus
             </Button>
           </div>
@@ -75,3 +83,4 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+
