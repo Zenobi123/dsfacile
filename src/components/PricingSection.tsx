@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Check, X } from 'lucide-react';
@@ -96,9 +95,14 @@ const PricingSection = () => {
           <div className="w-full md:w-72 bg-white rounded-lg shadow-md p-6 transition-transform hover:scale-105">
             <h3 className="text-xl font-bold text-primary mb-4">Enterprise</h3>
             <div className="text-4xl font-bold text-primary-dark mb-1">
-              500 000 <span className="text-base font-normal text-gray-500">F CFA/an</span>
-            </div>
-            <div className="h-64 py-6">
+            <Button 
+              variant="outline" 
+              className="w-full border-primary text-primary hover:bg-primary hover:text-white"
+            >
+              Contacter notre équipe
+            </Button>
+          </div>
+          <div className="h-64 py-6">
               <div className="mb-3 flex items-center">
                 <Check className="text-accent mr-2 w-5 h-5" />
                 <span>Entreprises illimitées</span>
@@ -129,13 +133,8 @@ const PricingSection = () => {
                 <span>API pour intégration</span>
               </div>
             </div>
-            <Button variant="outline" className="w-full border-accent text-accent hover:bg-accent hover:text-white">
-              Contacter notre équipe
-            </Button>
-          </div>
         </div>
       </div>
     </section>;
 };
 export default PricingSection;
-
