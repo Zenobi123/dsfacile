@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import {
@@ -86,7 +85,7 @@ const HeroSection = () => {
                 </form>
               </DialogContent>
             </Dialog>
-            <Button variant="outline" className="border-white text-white hover:bg-white/10">
+            <Button variant="outline" className="border-secondary text-secondary hover:bg-secondary/20">
               En savoir plus
             </Button>
           </div>
