@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import ContactForm from "./ContactForm";
+import { Link } from 'react-router-dom';
 
 const CtaSection = () => {
   return <section className="py-16 bg-gradient-to-r from-secondary to-primary text-white">
@@ -10,9 +11,11 @@ const CtaSection = () => {
           Commencez dès aujourd'hui et réduisez considérablement le temps et les efforts consacrés à la préparation de vos DSF.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button className="bg-accent hover:bg-accent-light text-white">
-            S'inscrire maintenant
-          </Button>
+          <Link to="/login">
+            <Button className="bg-accent hover:bg-accent-light text-white">
+              S'inscrire maintenant
+            </Button>
+          </Link>
           <ContactForm 
             trigger={
               <Button variant="outline" className="border-accent bg-white/80 hover:bg-accent/10 text-primary font-medium">
@@ -26,4 +29,3 @@ const CtaSection = () => {
 };
 
 export default CtaSection;
-

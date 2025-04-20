@@ -1,7 +1,7 @@
-
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Check, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const PricingSection = () => {
   const [activePeriod, setActivePeriod] = useState('standard');
@@ -56,7 +56,9 @@ const PricingSection = () => {
                 <span className="text-gray-500">Archivage limité (1 an)</span>
               </div>
             </div>
-            <Button className="w-full">Commencer</Button>
+            <Link to="/login">
+              <Button className="w-full">Commencer</Button>
+            </Link>
           </div>
           
           {/* Business Plan */}
@@ -94,7 +96,9 @@ const PricingSection = () => {
                 <span>Support prioritaire</span>
               </div>
             </div>
-            <Button className="w-full bg-accent hover:bg-secondary">Commencer</Button>
+            <Link to="/login">
+              <Button className="w-full bg-accent hover:bg-secondary">Commencer</Button>
+            </Link>
           </div>
           
           {/* Enterprise Plan */}
