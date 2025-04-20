@@ -85,7 +85,10 @@ const HeroSection = () => {
                 </form>
               </DialogContent>
             </Dialog>
-            <Button variant="outline" className="border-secondary text-secondary hover:bg-secondary/20">
+            <Button 
+              variant="outline" 
+              className="border-white text-white hover:bg-white/20 hover:border-white/80 transition-colors duration-300"
+            >
               En savoir plus
             </Button>
           </div>
