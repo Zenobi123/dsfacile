@@ -27,6 +27,7 @@ const Header = () => {
             <li><a href="#features" className="text-white hover:text-accent transition-colors">Fonctionnalités</a></li>
             <li><a href="#how-it-works" className="text-white hover:text-accent transition-colors">Comment ça marche</a></li>
             <li><a href="#pricing" className="text-white hover:text-accent transition-colors">Tarifs</a></li>
+            <li><Link to="/app" className="text-white hover:text-accent transition-colors">Application</Link></li>
             <li><a href="#faq" className="text-white hover:text-accent transition-colors">FAQ</a></li>
             <li>
               <Link to="/login">

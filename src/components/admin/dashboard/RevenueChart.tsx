@@ -1,5 +1,5 @@
 
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { ChartContainer } from "@/components/ui/chart";
 import { Line, LineChart, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip, Legend } from "recharts";
 
 interface RevenueChartProps {
@@ -119,7 +119,17 @@ const RevenueChart = ({ timeRange }: RevenueChartProps) => {
 };
 
 // Composant pour personnaliser le tooltip
-const CustomTooltip = ({ active, payload, label }: any) => {
+interface TooltipPayloadItem {
+  value: number | string;
+}
+
+interface CustomTooltipProps {
+  active?: boolean;
+  payload?: TooltipPayloadItem[];
+  label?: string;
+}
+
+const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-white p-3 border border-gray-200 shadow-md rounded-md">

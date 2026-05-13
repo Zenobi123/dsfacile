@@ -1,73 +1,36 @@
-# Welcome to your Lovable project
+# DSFacile
 
-## Project info
+DSFacile est une application React/Vite pour préparer des déclarations statistiques et fiscales camerounaises. Les modules applicatifs sont intégrés sous `/app`.
 
-**URL**: https://lovable.dev/projects/f961a1ce-87d6-4c29-8942-76626bae2d8a
+## Modules intégrés
 
-## How can I edit this code?
+- `/app/normal` : DSF normale avec identification contribuable, bilan actif/passif, compte de résultat, contrôles d'équilibre, import CSV, sauvegarde JSON et export XLSX.
+- `/app/smt` : DSF système minimal de trésorerie avec recettes encaissées, dépenses payées, contrôle de caisse, import CSV, sauvegarde JSON et export XLSX.
+- `/app` : écran d'accueil applicatif permettant de choisir le module.
 
-There are several ways of editing your application.
+## Limite réglementaire
 
-**Use Lovable**
+Les exports XLSX sont des classeurs de préparation et de revue interne. Avant un dépôt réel, les feuilles doivent être validées contre les modèles officiels et les contraintes de dépôt DGI applicables à l'exercice fiscal.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/f961a1ce-87d6-4c29-8942-76626bae2d8a) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+## Démarrage
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Scripts
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```sh
+npm run build
+npm run lint
+npm run typecheck
+npm run preview
+```
 
-**Use GitHub Codespaces**
+## Structure utile
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/f961a1ce-87d6-4c29-8942-76626bae2d8a) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+- `src/pages/DsfHome.tsx` : accueil applicatif intégré.
+- `src/pages/DsfWorkspace.tsx` : écran de saisie DSF normale / SMT.
+- `src/features/dsf/index.ts` : modèle métier, calculs, validations, stockage et génération XLSX.
+- `PRODUCTION_READINESS_AUDIT.md` : audit initial de préparation production.
