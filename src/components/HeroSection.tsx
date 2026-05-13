@@ -1,5 +1,6 @@
 
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -36,9 +37,14 @@ const HeroSection = () => {
             DSFacile est une solution SaaS qui automatise et simplifie la préparation de vos DSF (Normale et SMT) en conformité avec les exigences de la DGI du Cameroun.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
+            <Link to="/app">
+              <Button className="bg-accent hover:bg-secondary text-white">
+                Ouvrir l'application DSF
+              </Button>
+            </Link>
             <Dialog open={open} onOpenChange={setOpen}>
               <DialogTrigger asChild>
-                <Button className="bg-accent hover:bg-secondary text-white">
+                <Button variant="outline" className="border-white bg-white/10 text-white hover:bg-white hover:text-primary">
                   Demander une démo
                 </Button>
               </DialogTrigger>
