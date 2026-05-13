@@ -10,17 +10,17 @@ const AdminDashboard = () => {
   
   return (
     <AdminLayout>
-      <div className="p-6">
-        <h1 className="text-3xl font-bold mb-6">Tableau de bord d'administration</h1>
+      <div className="p-4 sm:p-6">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-6">Tableau de bord d'administration</h1>
         
         {/* Statistiques générales */}
         <DashboardStats />
         
         {/* Graphique des revenus */}
         <div className="mt-8">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
             <h2 className="text-xl font-semibold">Évolution des revenus</h2>
-            <div className="flex space-x-2">
+            <div className="flex flex-wrap gap-2">
               <button 
                 onClick={() => setTimeRange("daily")}
                 className={`px-3 py-1 rounded ${timeRange === "daily" ? "bg-primary text-white" : "bg-gray-100"}`}
