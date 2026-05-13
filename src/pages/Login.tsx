@@ -26,14 +26,14 @@ export default function Login() {
   return (
     <div className="min-h-screen flex flex-col bg-[#f5f7fa]">
       <header className="bg-primary shadow-md">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div className="container mx-auto px-4 py-4 flex flex-col sm:flex-row gap-2 sm:gap-0 justify-between items-center">
           <Link to="/" className="text-2xl font-bold text-white">
             DSF<span className="text-accent">acile</span>
           </Link>
-          <nav>
-            <Link to="/" className="text-white hover:text-accent transition-colors ml-4">Accueil</Link>
-            <Link to="#" className="text-white hover:text-accent transition-colors ml-4">Contact</Link>
-            <Link to="#" className="text-white hover:text-accent transition-colors ml-4">Aide</Link>
+          <nav className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm sm:text-base">
+            <Link to="/" className="text-white hover:text-accent transition-colors">Accueil</Link>
+            <Link to="#" className="text-white hover:text-accent transition-colors">Contact</Link>
+            <Link to="#" className="text-white hover:text-accent transition-colors">Aide</Link>
           </nav>
         </div>
       </header>

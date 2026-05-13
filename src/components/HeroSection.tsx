@@ -76,8 +76,8 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
-      <div className="absolute bottom-0 right-0 opacity-10">
-        <img src="https://via.placeholder.com/500" alt="DSF" className="w-[500px] h-auto" />
+      <div className="absolute bottom-0 right-0 opacity-10 hidden md:block pointer-events-none">
+        <img src="/placeholder.svg" alt="" className="w-[500px] h-auto" />
       </div>
     </section>;
 };

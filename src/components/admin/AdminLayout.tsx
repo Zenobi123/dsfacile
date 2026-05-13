@@ -1,33 +1,47 @@
 
-import { useState, ReactNode } from "react";
+import { useState, ReactNode, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { 
   Users, BarChart3, CreditCard, FileText, 
   Settings, Bell, Home, Menu, X, LogOut 
 } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface AdminLayoutProps {
   children: ReactNode;
 }
 
 const AdminLayout = ({ children }: AdminLayoutProps) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  
+  const isMobile = useIsMobile();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    setIsSidebarOpen(!isMobile);
+  }, [isMobile]);
+
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
-  
+
   return (
     <div className="min-h-screen bg-gray-50 flex">
+      {/* Overlay mobile */}
+      {isMobile && isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-10"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
       <aside 
-        className={`bg-primary text-white w-64 fixed h-full transition-all duration-300 ease-in-out z-10 ${
+        className={`bg-primary text-white w-64 fixed h-full transition-all duration-300 ease-in-out z-20 ${
           isSidebarOpen ? "left-0" : "-left-64"
         }`}
       >
         <div className="p-4 flex justify-between items-center border-b border-primary-dark">
           <Link to="/admin" className="text-xl font-bold">DSF<span className="text-accent">acile</span> Admin</Link>
-          <button onClick={toggleSidebar} className="lg:hidden">
+          <button onClick={toggleSidebar} aria-label="Fermer le menu">
             <X size={24} />
           </button>
         </div>
@@ -80,12 +94,12 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
       </aside>
       
       {/* Main content */}
-      <div className={`flex-1 transition-all duration-300 ${
-        isSidebarOpen ? "ml-64" : "ml-0"
+      <div className={`flex-1 transition-all duration-300 min-w-0 ${
+        isSidebarOpen && !isMobile ? "ml-64" : "ml-0"
       }`}>
         {/* Header */}
-        <header className="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
-          <button onClick={toggleSidebar} className="lg:hidden">
+        <header className="bg-white shadow-sm py-4 px-4 sm:px-6 flex justify-between items-center">
+          <button onClick={toggleSidebar} aria-label="Ouvrir le menu">
             <Menu size={24} />
           </button>
           
