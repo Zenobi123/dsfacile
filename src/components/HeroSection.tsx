@@ -6,6 +6,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
+import { CONTACT_EMAIL, openMailClient } from "@/lib/contact";
 
 const HeroSection = () => {
   const { toast } = useToast();
@@ -16,9 +17,13 @@ const HeroSection = () => {
 
   const handleDemoRequest = (e: React.FormEvent) => {
     e.preventDefault();
+    openMailClient(
+      "DSFacile — Demande de démonstration",
+      `Nom : ${name}\nEmail : ${email}\nEntreprise : ${company}\n\nJe souhaite une démonstration de DSFacile.`,
+    );
     toast({
-      title: "Demande envoyée!",
-      description: "Nous vous contacterons bientôt pour planifier votre démo."
+      title: "Demande préparée",
+      description: `Votre logiciel de messagerie s'ouvre avec un e-mail à destination de ${CONTACT_EMAIL}. Il reste à l'envoyer.`
     });
     setOpen(false);
   };
@@ -34,7 +39,9 @@ const HeroSection = () => {
             Simplifiez vos Déclarations Statistiques et Fiscales au Cameroun
           </h1>
           <p className="text-lg mb-8 opacity-90">
-            DSFacile est une solution SaaS qui automatise et simplifie la préparation de vos DSF (Normale et SMT) en conformité avec les exigences de la DGI du Cameroun.
+            DSFacile est un outil de préparation de vos DSF (Normale et SMT) : saisie guidée, calculs
+            automatiques, contrôles de cohérence et export XLSX. Les classeurs produits sont des
+            documents de travail à faire valider avant dépôt auprès de la DGI.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link to="/app">
@@ -52,7 +59,8 @@ const HeroSection = () => {
                 <DialogHeader>
                   <DialogTitle>Demander une démo</DialogTitle>
                   <DialogDescription>
-                    Remplissez le formulaire ci-dessous pour recevoir une démonstration personnalisée de DSFacile.
+                    Remplissez le formulaire : votre logiciel de messagerie s'ouvrira avec un e-mail
+                    pré-rempli à destination de {CONTACT_EMAIL}, que vous n'aurez plus qu'à envoyer.
                   </DialogDescription>
                 </DialogHeader>
                 <form onSubmit={handleDemoRequest} className="space-y-4 pt-4">

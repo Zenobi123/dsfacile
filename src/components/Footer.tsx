@@ -19,7 +19,6 @@ const Footer = () => {
             <ul className="space-y-2">
               <li><a href="#" className="text-gray-300 hover:text-accent transition-colors">Fonctionnalités</a></li>
               <li><a href="#" className="text-gray-300 hover:text-accent transition-colors">Tarifs</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-accent transition-colors">Témoignages</a></li>
               <li><a href="#" className="text-gray-300 hover:text-accent transition-colors">Guide d'utilisation</a></li>
             </ul>
           </div>

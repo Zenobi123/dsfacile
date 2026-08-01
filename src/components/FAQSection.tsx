@@ -14,20 +14,20 @@ const faqs = [
     answer: "La Déclaration Statistique et Fiscale (DSF) est un document comptable que toute entreprise camerounaise doit déposer annuellement auprès de la Direction Générale des Impôts (DGI). Elle permet à l'administration fiscale d'avoir une vision complète de la situation financière de l'entreprise et sert de base pour le calcul de divers impôts et taxes."
   },
   {
-    question: "Comment DSFacile protège-t-il mes données financières ?",
-    answer: "Vos données sont chiffrées lors du transfert et du stockage. Nous utilisons des protocoles de sécurité avancés et des infrastructures cloud sécurisées. Seules les personnes autorisées de votre organisation peuvent accéder à vos informations grâce à un système de gestion des droits d'accès."
+    question: "Où sont stockées mes données financières ?",
+    answer: "Uniquement dans votre navigateur, sur votre poste. DSFacile fonctionne intégralement côté client : il n'y a ni compte, ni serveur, ni base de données, et aucune donnée n'est transmise à qui que ce soit. En contrepartie, vos saisies ne sont ni sauvegardées à distance ni synchronisées entre appareils : vider les données de votre navigateur les efface définitivement. Utilisez la sauvegarde JSON de l'application pour conserver vos dossiers."
   },
   {
     question: "Puis-je importer des données depuis mon logiciel comptable ?",
-    answer: "Oui, DSFacile permet d'importer des données depuis la plupart des logiciels comptables via des fichiers Excel ou CSV. Notre système reconnaît automatiquement les formats standards des balances comptables générées par SAGE, SAP, QuickBooks et autres solutions populaires au Cameroun."
+    answer: "DSFacile importe des fichiers CSV au format du modèle téléchargeable depuis l'application, où chaque ligne est déjà rattachée à une rubrique (actif, passif, produit, charge, recette ou dépense). L'import direct d'une balance comptable générale, avec reconnaissance automatique des exports SAGE, SAP ou QuickBooks, n'est pas encore disponible : le rapprochement entre vos comptes et les rubriques doit être fait en amont."
   },
   {
     question: "Le logiciel est-il à jour avec la réglementation fiscale camerounaise ?",
-    answer: "Absolument. Notre équipe d'experts fiscaux et juridiques surveille constamment les changements dans la législation fiscale camerounaise. Le logiciel est mis à jour régulièrement pour refléter les dernières exigences de la DGI, vous garantissant ainsi une conformité totale."
+    answer: "DSFacile reprend la structure générale des états financiers SYSCOHADA, mais ne contient pas de référentiel officiel versionné par exercice et n'a pas fait l'objet d'une homologation par la DGI. Les classeurs produits sont des documents de préparation et de revue interne : ils doivent être vérifiés par un professionnel et confrontés aux modèles officiels en vigueur avant tout dépôt."
   },
   {
-    question: "Est-ce que je peux essayer DSFacile avant de m'abonner ?",
-    answer: "Oui, nous offrons une démo gratuite qui vous permet de tester les fonctionnalités principales de DSFacile. Vous pouvez également bénéficier d'un essai de 14 jours sans engagement pour évaluer pleinement la solution avec vos propres données."
+    question: "Combien coûte DSFacile ?",
+    answer: "L'application est actuellement utilisable gratuitement et sans compte : il suffit d'ouvrir le module DSF Normale ou SMT depuis le site. Les offres payantes présentées dans la section Tarifs sont en préparation et la facturation n'est pas encore active."
   }
 ];
 

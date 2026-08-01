@@ -7,6 +7,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { CONTACT_EMAIL, openMailClient } from "@/lib/contact";
+
+const subjectLabels: Record<string, string> = {
+  support: "Support technique",
+  billing: "Facturation",
+  feature: "Suggestion de fonctionnalité",
+  partnership: "Partenariat",
+  other: "Autre",
+};
 
 interface ContactFormProps {
   trigger: React.ReactNode;
@@ -22,9 +31,13 @@ const ContactForm = ({ trigger }: ContactFormProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    openMailClient(
+      `DSFacile — ${subjectLabels[subject] ?? "Contact"}`,
+      `Nom : ${name}\nEmail : ${email}\nSujet : ${subjectLabels[subject] ?? subject}\n\n${message}`,
+    );
     toast({
-      title: "Message envoyé",
-      description: "Nous vous répondrons dans les plus brefs délais.",
+      title: "Message préparé",
+      description: `Votre logiciel de messagerie s'ouvre avec un e-mail à destination de ${CONTACT_EMAIL}. Il reste à l'envoyer.`,
     });
     setOpen(false);
   };
@@ -38,7 +51,8 @@ const ContactForm = ({ trigger }: ContactFormProps) => {
         <DialogHeader>
           <DialogTitle>Contactez-nous</DialogTitle>
           <DialogDescription>
-            Remplissez le formulaire ci-dessous pour nous envoyer un message.
+            Remplissez le formulaire : votre logiciel de messagerie s'ouvrira avec un e-mail
+            pré-rempli à destination de {CONTACT_EMAIL}, que vous n'aurez plus qu'à envoyer.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
