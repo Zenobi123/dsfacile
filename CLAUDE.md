@@ -24,13 +24,13 @@ DSFacile is a **fully client-side** React 18 + Vite + TypeScript app — no back
 | Path | Page | Purpose |
 |---|---|---|
 | `/` | `Index` | Marketing landing page (hero, features, pricing, FAQ…) |
-| `/login` | `Login` | Stub — writes to console only, no auth |
 | `/app` | `DsfHome` | Module picker between DSF normale and SMT |
 | `/app/normal` | `DsfWorkspace mode="normal"` | Full DSF Système Normal workspace |
 | `/app/smt` | `DsfWorkspace mode="smt"` | DSF Système Minimal de Trésorerie workspace |
-| `/admin` | `AdminDashboard` | Stub — hardcoded stats, no real data |
+| `/conditions-utilisation`, `/confidentialite`, `/mentions-legales` | `LegalPage` | Legal pages; publisher identifiers come from `src/lib/contact.ts` |
+| `/admin` | `AdminDashboard` | Dev-only stub (not routed in production builds) — hardcoded stats, no real data |
 
-`Login`, `AdminDashboard`, `DsfHome`, and `DsfWorkspace` are lazy-loaded via `React.lazy`.
+`AdminDashboard`, `DsfHome`, `DsfWorkspace` and `LegalPage` are lazy-loaded via `React.lazy`. Contact details (e-mail, phones, city, publisher RCCM/NIU, host) live in `src/lib/contact.ts`; the footer, contact forms and legal pages read them from there.
 
 ### Core business logic: `src/features/dsf/index.ts`
 
@@ -68,7 +68,7 @@ Use `className` with Tailwind utilities throughout; avoid inline styles. The `@`
 
 ## Key constraints
 
-- **No backend**: the `/login` and `/admin` routes are non-functional stubs. Do not add server calls without introducing a proper backend layer.
+- **No backend**: there are no accounts; `/admin` is a dev-only stub. Do not add server calls without introducing a proper backend layer.
 - **Regulatory scope**: XLSX exports are internal preparation workbooks, not official DGI filings. Any changes to the financial calculation logic (`calculateSummary`, `validateDeclaration`) must preserve the Cameroonian OHADA/SYSCOHADA semantics documented in `PRODUCTION_READINESS_AUDIT.md`.
 - **localStorage only**: declarations persist only in the user's browser. There is no sync, backup, or multi-device support.
 - **No test suite**: rely on `npm run typecheck` and `npm run lint` for correctness feedback. Manual browser testing is required for UI changes.

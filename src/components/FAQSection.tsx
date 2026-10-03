@@ -27,7 +27,7 @@ const faqs = [
   },
   {
     question: "Combien coûte DSFacile ?",
-    answer: "L'application est actuellement utilisable gratuitement et sans compte : il suffit d'ouvrir le module DSF Normale ou SMT depuis le site. Les offres payantes présentées dans la section Tarifs sont en préparation et la facturation n'est pas encore active."
+    answer: "Rien : DSFacile est gratuit et s'utilise sans compte. Il suffit d'ouvrir le module DSF Normale ou SMT depuis le site. Aucune offre payante n'est proposée."
   }
 ];
 

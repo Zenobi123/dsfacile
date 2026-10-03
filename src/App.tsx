@@ -7,9 +7,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
-const Login = lazy(() => import("./pages/Login"));
 const DsfHome = lazy(() => import("./pages/DsfHome"));
 const DsfWorkspace = lazy(() => import("./pages/DsfWorkspace"));
+const LegalPage = lazy(() => import("./pages/LegalPage"));
 
 // Le tableau de bord d'administration n'a aucune authentification et n'affiche que des
 // données factices : il reste accessible en développement, jamais dans un build de production.
@@ -27,10 +27,12 @@ const App = () => (
         <Suspense fallback={<div className="min-h-screen bg-gray-50 p-8 text-primary">Chargement de DSFacile…</div>}>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/login" element={<Login />} />
             <Route path="/app" element={<DsfHome />} />
             <Route path="/app/normal" element={<DsfWorkspace mode="normal" />} />
             <Route path="/app/smt" element={<DsfWorkspace mode="smt" />} />
+            <Route path="/conditions-utilisation" element={<LegalPage page="conditions" />} />
+            <Route path="/confidentialite" element={<LegalPage page="confidentialite" />} />
+            <Route path="/mentions-legales" element={<LegalPage page="mentions" />} />
             {AdminDashboard ? <Route path="/admin" element={<AdminDashboard />} /> : null}
             <Route path="*" element={<NotFound />} />
           </Routes>
