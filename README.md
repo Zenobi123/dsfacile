@@ -49,8 +49,8 @@ DSFacile est une single-page application : toutes les routes doivent être réé
 - **nginx** : `location / { try_files $uri $uri/ /index.html; }`
 - **Apache** : régle de réécriture `RewriteRule ^ index.html [L]` pour les chemins non existants.
 
-Avant une mise en ligne, remplacer l'adresse `CONTACT_EMAIL` dans `src/lib/contact.ts` par une
-adresse réellement relevée, ainsi que les coordonnées du pied de page.
+Les coordonnées de contact (e-mail, téléphones, ville) sont centralisées dans `src/lib/contact.ts` :
+les formulaires et le pied de page les y lisent.
 
 ## Structure utile
 

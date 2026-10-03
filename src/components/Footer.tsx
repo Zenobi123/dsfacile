@@ -1,4 +1,6 @@
 
+import { CONTACT_CITY, CONTACT_EMAIL, CONTACT_PHONES, phoneLink } from "@/lib/contact";
+
 const Footer = () => {
   return (
     <footer className="bg-primary-dark text-white pt-16 pb-8">
@@ -36,9 +38,11 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-semibold mb-4 text-accent">Contact</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-300 hover:text-accent transition-colors">contact@dsfacile.cm</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-accent transition-colors">+237 6XX XXX XXX</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-accent transition-colors">Douala, Cameroun</a></li>
+              <li><a href={`mailto:${CONTACT_EMAIL}`} className="break-all text-gray-300 hover:text-accent transition-colors">{CONTACT_EMAIL}</a></li>
+              {CONTACT_PHONES.map((phone) => (
+                <li key={phone}><a href={phoneLink(phone)} className="text-gray-300 hover:text-accent transition-colors">{phone}</a></li>
+              ))}
+              <li className="text-gray-300">{CONTACT_CITY}</li>
             </ul>
             <div className="flex space-x-4 mt-4">
               <a href="#" className="text-gray-300 hover:text-accent transition-colors">
