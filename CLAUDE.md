@@ -9,11 +9,12 @@ npm run dev          # Start dev server on port 8080
 npm run build        # Production build
 npm run build:dev    # Development build
 npm run lint         # ESLint
-npm run typecheck    # TypeScript check (no test suite exists)
+npm run typecheck    # TypeScript check
+npm test             # Vitest unit tests (npm run test:watch to watch)
 npm run preview      # Preview production build
 ```
 
-There are no automated tests. Type-checking (`npm run typecheck`) is the primary correctness gate.
+Vitest unit tests cover the DSF domain logic (`src/features/dsf/index.test.ts`), including a structural check of the generated XLSX archive. CI (`.github/workflows/ci.yml`) runs lint, typecheck, tests and build on every pull request and on pushes to `main`.
 
 ## Architecture
 
@@ -44,6 +45,7 @@ All DSF domain logic lives in a **single flat file** (no sub-modules). It is ent
 - **`validateDeclaration(declaration)`** — returns `ValidationIssue[]`; errors block XLSX export, warnings appear in the workbook
 - **`loadDeclaration(mode)` / `saveDeclaration(declaration)` / `clearDeclaration(mode)`** — localStorage persistence keyed `dsfacile:<mode>:declaration:v1`
 - **`parseCsv(mode, csv)`** — parses semicolon-delimited CSV into `{ lines, issues }`; first row is skipped if it starts with `type;` or `etat;`. Unknown types and unreadable amounts (`parseAmount` handles French/English separators, `FCFA`, parentheses, exponents) are reported as errors, and any error makes the import all-or-nothing: `lines` is then empty so no wrong amount reaches the export
+- **`csvTemplates`** — the downloadable CSV templates per mode; a test guarantees they import without any issue
 - **`exportDeclarationToXlsx(declaration)`** — generates a real XLSX (Open XML) **from scratch** in-browser using a hand-rolled ZIP/CRC32 implementation; triggers a browser download
 
 The XLSX generator has **no external dependency** — it constructs the ZIP bytes manually. Do not introduce `xlsx` / `exceljs` libraries unless the hand-rolled approach is being replaced entirely.
@@ -71,4 +73,4 @@ Use `className` with Tailwind utilities throughout; avoid inline styles. The `@`
 - **No backend**: the `/login` and `/admin` routes are non-functional stubs. Do not add server calls without introducing a proper backend layer.
 - **Regulatory scope**: XLSX exports are internal preparation workbooks, not official DGI filings. Any changes to the financial calculation logic (`calculateSummary`, `validateDeclaration`) must preserve the Cameroonian OHADA/SYSCOHADA semantics documented in `PRODUCTION_READINESS_AUDIT.md`.
 - **localStorage only**: declarations persist only in the user's browser. There is no sync, backup, or multi-device support.
-- **No test suite**: rely on `npm run typecheck` and `npm run lint` for correctness feedback. Manual browser testing is required for UI changes.
+- **Tests**: any change to `src/features/dsf/index.ts` comes with a test in `index.test.ts`; run `npm test`, `npm run typecheck` and `npm run lint` before pushing. UI components have no automated tests, so UI changes still require manual browser testing.

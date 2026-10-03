@@ -100,6 +100,12 @@ const kindAliases: Record<DsfMode, Partial<Record<LineKind, string[]>>> = {
   },
 };
 
+/** Modèles CSV proposés au téléchargement ; ils doivent s'importer sans aucune erreur. */
+export const csvTemplates: Record<DsfMode, string> = {
+  normal: "etat;code;section;libelle;n;n-1;date;reference\nasset;AI;Actif immobilisé;Immobilisations corporelles;1500000;1200000;;\nliability;CA;Capitaux propres;Capital;1000000;900000;;\nincome;TA;Produits d'exploitation;Ventes;2500000;2100000;;\nexpense;RA;Achats;Achats de marchandises;900000;800000;;\n",
+  smt: "type;code;section;libelle;montant;n-1;date;reference\nreceipt;;Ventes encaissées;Encaissement client;250000;0;2025-01-15;FAC-001\npayment;;Achats payés;Paiement fournisseur;90000;0;2025-01-20;FOU-001\n",
+};
+
 const expectedKinds: Record<DsfMode, string> = {
   normal: "actif, passif, produit ou charge",
   smt: "recette ou dépense",

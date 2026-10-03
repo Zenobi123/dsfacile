@@ -36,8 +36,13 @@ npm run dev
 npm run build
 npm run lint
 npm run typecheck
+npm test
 npm run preview
 ```
+
+`npm test` lance les tests unitaires (Vitest) de la logique DSF. À chaque pull request et à chaque
+push sur `main`, l'intégration continue (`.github/workflows/ci.yml`) exécute le lint, la vérification
+des types, les tests et le build.
 
 ## Déploiement
 
