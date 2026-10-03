@@ -126,7 +126,7 @@ export const createDeclaration = (mode: DsfMode): DsfDeclaration => ({
   },
   lines: mode === "normal"
     ? [
-        createLine("asset", "AD", "Immobilisations corporelles"),
+        createLine("asset", "AI", "Immobilisations corporelles"),
         createLine("liability", "CA", "Capital"),
         createLine("income", "TA", "Ventes"),
         createLine("expense", "RA", "Achats"),
