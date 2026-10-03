@@ -279,17 +279,18 @@ export const parseCsv = (mode: DsfMode, csv: string): CsvImport => {
     const [kindCell = "", code = "", section = "", label = "", current = "", previous = "", date = "", reference = ""] = row.split(";").map((cell) => cell.trim());
     const kind = parseKind(mode, kindCell);
     if (!kind) {
-      issues.push({ severity: "error", message: `Ligne ${rowNumber} du CSV: type « ${kindCell} » non reconnu en ${modeLabels[mode]} (attendu : ${expectedKinds[mode]}). Ligne ignorée.` });
+      issues.push({ severity: "error", message: `Ligne ${rowNumber} du CSV: type « ${kindCell} » non reconnu en ${modeLabels[mode]} (attendu : ${expectedKinds[mode]}).` });
       return;
     }
     const [currentAmount, previousAmount] = ([["N", current], ["N-1", previous]] as const).map(([column, cell]) => {
       const amount = parseAmount(cell);
-      if (amount === null) issues.push({ severity: "error", message: `Ligne ${rowNumber} du CSV: montant ${column} « ${cell} » illisible, compté 0.` });
+      if (amount === null) issues.push({ severity: "error", message: `Ligne ${rowNumber} du CSV: montant ${column} « ${cell} » illisible.` });
       return amount ?? 0;
     });
     lines.push({ ...createLine(kind, code, label), section: findSection(kind, section) ?? (section || sections[kind][0]), current: currentAmount, previous: previousAmount, date: date || `${currentYear - 1}-12-31`, reference });
   });
-  return { lines, issues };
+  // Import tout ou rien : un CSV en erreur ne remplace aucune ligne, pour qu'aucun montant faux n'atteigne l'export.
+  return { lines: issues.some((issue) => issue.severity === "error") ? [] : lines, issues };
 };
 
 export const exportDeclarationToXlsx = (declaration: DsfDeclaration) => {
@@ -314,7 +315,7 @@ export const numberValue = (value: string | number) => {
 };
 /**
  * Lit un montant saisi à la main ou exporté d'un tableur : « 1 500 000 », « 1.500.000 », « 1,500,000 »,
- * « 1 500 000,50 », « 1.500.000,50 », « -1 500 », « (1 500) », « 250 000 FCFA ».
+ * « 1 500 000,50 », « 1.500.000,50 », « -1 500 », « (1 500) », « 250 000 FCFA », « 1e6 ».
  * Le franc CFA n'ayant pas de subdivision en usage, un séparateur unique suivi de trois chiffres
  * (« 1.500 ») est lu comme séparateur de milliers. Retourne null si le texte n'est pas un montant.
  */
@@ -331,6 +332,11 @@ export const parseAmount = (value: string): number | null => {
     text = text.slice(1);
   } else if (text.startsWith("+")) {
     text = text.slice(1);
+  }
+  // Notation scientifique produite par certains tableurs : 1e6, 2.5E+7, 2,5E+7.
+  if (/^\d+([.,]\d+)?e[+-]?\d+$/i.test(text)) {
+    const scientific = Number(text.replace(",", "."));
+    return Number.isFinite(scientific) ? sign * scientific : null;
   }
   const lastDot = text.lastIndexOf(".");
   const lastComma = text.lastIndexOf(",");

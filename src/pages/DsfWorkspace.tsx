@@ -99,7 +99,8 @@ const DsfWorkspace = ({ mode }: DsfWorkspaceProps) => {
   const importCsvContent = (value: string) => {
     setCsvPreview(value);
     const { lines, issues: importIssues } = parseCsv(mode, value);
-    setCsvIssues(importIssues);
+    const rejected = importIssues.some((issue) => issue.severity === "error");
+    setCsvIssues(rejected ? [{ severity: "error", message: "Import non appliqué : corrigez le CSV ci-dessus. Les lignes actuelles sont conservées." }, ...importIssues] : importIssues);
     if (lines.length > 0) setDeclaration((current) => ({ ...current, lines, updatedAt: new Date().toISOString() }));
   };
 
