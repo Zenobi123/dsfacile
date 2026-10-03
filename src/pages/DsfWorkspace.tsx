@@ -112,7 +112,7 @@ const DsfWorkspace = ({ mode }: DsfWorkspaceProps) => {
   };
 
   const downloadTemplate = () => {
-    const normalTemplate = "etat;code;section;libelle;n;n-1;date;reference\nasset;AD;Actif immobilisé;Immobilisations corporelles;1500000;1200000;;\nliability;CA;Capitaux propres;Capital;1000000;900000;;\nincome;TA;Produits d'exploitation;Ventes;2500000;2100000;;\nexpense;RA;Achats;Achats de marchandises;900000;800000;;\n";
+    const normalTemplate = "etat;code;section;libelle;n;n-1;date;reference\nasset;AI;Actif immobilisé;Immobilisations corporelles;1500000;1200000;;\nliability;CA;Capitaux propres;Capital;1000000;900000;;\nincome;TA;Produits d'exploitation;Ventes;2500000;2100000;;\nexpense;RA;Achats;Achats de marchandises;900000;800000;;\n";
     const smtTemplate = "type;code;section;libelle;montant;n-1;date;reference\nreceipt;;Ventes encaissées;Encaissement client;250000;0;2025-01-15;FAC-001\npayment;;Achats payés;Paiement fournisseur;90000;0;2025-01-20;FOU-001\n";
     downloadText(mode === "normal" ? normalTemplate : smtTemplate, `modele-${mode}-dsfacile.csv`, "text/csv;charset=utf-8");
   };
@@ -222,7 +222,7 @@ const DsfWorkspace = ({ mode }: DsfWorkspaceProps) => {
         <section className="grid gap-8 lg:grid-cols-2">
           <div className="rounded-lg bg-white p-6 shadow">
             <div className="mb-4 flex items-center justify-between gap-3"><div><h2 className="text-xl font-semibold text-primary">Import CSV</h2><p className="text-sm text-gray-600">Format compatible avec le modèle téléchargeable.</p></div><div className="flex gap-2"><label className="inline-flex cursor-pointer items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground"><Upload className="mr-2 h-4 w-4" /> Importer<input type="file" accept=".csv,text/csv" className="sr-only" onChange={importCsvFile} /></label><Button variant="outline" onClick={downloadTemplate}><Download className="mr-2 h-4 w-4" /> Modèle</Button></div></div>
-            <Textarea className="min-h-[180px] font-mono text-xs" value={csvPreview} onChange={(event) => importCsvContent(event.target.value)} placeholder={mode === "normal" ? "asset;AD;Actif immobilisé;Immobilisations;1500000;1200000;;" : "receipt;;Ventes encaissées;Encaissement client;250000;0;2025-01-15;FAC-001"} />
+            <Textarea className="min-h-[180px] font-mono text-xs" value={csvPreview} onChange={(event) => importCsvContent(event.target.value)} placeholder={mode === "normal" ? "asset;AI;Actif immobilisé;Immobilisations corporelles;1500000;1200000;;" : "receipt;;Ventes encaissées;Encaissement client;250000;0;2025-01-15;FAC-001"} />
             {csvIssues.length > 0 ? <div className="mt-4 space-y-2">{csvIssues.map((issue) => <div key={issue.message} className={`rounded-md border p-3 text-sm ${issueClass(issue.severity)}`}><div className="flex gap-2"><AlertCircle className="mt-0.5 h-4 w-4 shrink-0" /><span>{issue.message}</span></div></div>)}</div> : null}
           </div>
           <div className="rounded-lg bg-white p-6 shadow"><h2 className="text-xl font-semibold text-primary">Export XLSX intégré</h2><p className="mt-2 text-gray-600">Le classeur généré contient identification, tableaux métier, synthèse, contrôles et empreinte de contrôle.</p><Button className="mt-5 bg-primary" onClick={exportWorkbook} disabled={blocking}><FileSpreadsheet className="mr-2 h-4 w-4" /> Générer la liasse XLSX</Button></div>
