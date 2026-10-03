@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
-import { calculateSummary, clearDeclaration, createDeclaration, createLine, DsfDeclaration, DsfLine, DsfMode, exportDeclarationToXlsx, formatCurrency, kindLabels, LineKind, loadDeclaration, modeLabels, normalizeDeclaration, numberValue, parseCsv, saveDeclaration, sections, validateDeclaration, ValidationIssue } from "@/features/dsf";
+import { calculateSummary, clearDeclaration, createDeclaration, createLine, csvTemplates, DsfDeclaration, DsfLine, DsfMode, exportDeclarationToXlsx, formatCurrency, kindLabels, LineKind, loadDeclaration, modeLabels, normalizeDeclaration, numberValue, parseCsv, saveDeclaration, sections, validateDeclaration, ValidationIssue } from "@/features/dsf";
 
 interface DsfWorkspaceProps {
   mode: DsfMode;
@@ -112,9 +112,7 @@ const DsfWorkspace = ({ mode }: DsfWorkspaceProps) => {
   };
 
   const downloadTemplate = () => {
-    const normalTemplate = "etat;code;section;libelle;n;n-1;date;reference\nasset;AI;Actif immobilisé;Immobilisations corporelles;1500000;1200000;;\nliability;CA;Capitaux propres;Capital;1000000;900000;;\nincome;TA;Produits d'exploitation;Ventes;2500000;2100000;;\nexpense;RA;Achats;Achats de marchandises;900000;800000;;\n";
-    const smtTemplate = "type;code;section;libelle;montant;n-1;date;reference\nreceipt;;Ventes encaissées;Encaissement client;250000;0;2025-01-15;FAC-001\npayment;;Achats payés;Paiement fournisseur;90000;0;2025-01-20;FOU-001\n";
-    downloadText(mode === "normal" ? normalTemplate : smtTemplate, `modele-${mode}-dsfacile.csv`, "text/csv;charset=utf-8");
+    downloadText(csvTemplates[mode], `modele-${mode}-dsfacile.csv`, "text/csv;charset=utf-8");
   };
 
   return (
