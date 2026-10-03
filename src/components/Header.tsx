@@ -1,6 +1,5 @@
 
 import { useState } from 'react';
-import { Button } from "@/components/ui/button";
 import { Menu } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -29,13 +28,6 @@ const Header = () => {
             <li><a href="#pricing" className="text-white hover:text-accent transition-colors">Tarifs</a></li>
             <li><Link to="/app" className="text-white hover:text-accent transition-colors">Application</Link></li>
             <li><a href="#faq" className="text-white hover:text-accent transition-colors">FAQ</a></li>
-            <li>
-              <Link to="/login">
-                <Button variant="outline" className="border-accent text-accent hover:bg-accent hover:text-white">
-                  Connexion
-                </Button>
-              </Link>
-            </li>
           </ul>
         </nav>
       </div>

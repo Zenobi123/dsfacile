@@ -107,13 +107,6 @@
   @apply w-16 h-16 bg-accent-extraLight rounded-full flex items-center justify-center mb-5;
 }
 
-.pricing-tab {
-  @apply px-4 py-2 bg-gray-100 cursor-pointer transition-colors;
-}
-
-.pricing-tab.active {
-  @apply bg-accent text-white;
-}
 
 .plan-feature i {
   @apply text-accent mr-2;

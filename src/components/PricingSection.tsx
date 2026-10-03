@@ -1,158 +1,57 @@
-import { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { Check, X } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { buildMailtoLink } from "@/lib/contact";
 
+// Ce que l'application fait réellement aujourd'hui : à tenir à jour avec les fonctionnalités livrées.
+const included = [
+  "DSF Système Normal et Système Minimal de Trésorerie",
+  "Saisie guidée et import CSV depuis le modèle fourni",
+  "Contrôles de cohérence avant export",
+  "Export XLSX de préparation et de revue interne",
+  "Sauvegarde et restauration de vos dossiers (JSON)",
+  "Données conservées dans votre navigateur, sans compte",
+];
+
 const PricingSection = () => {
-  const [activePeriod, setActivePeriod] = useState('standard');
-  
   return (
     <section id="pricing" className="py-20">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">Nos tarifs</h2>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">Tarifs</h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Des forfaits adaptés à toutes les tailles d'entreprises
+            DSFacile est gratuit, sans compte et sans engagement.
           </p>
-          <div className="mt-6 mx-auto max-w-3xl rounded-lg border border-secondary/40 bg-secondary/10 px-6 py-4 text-left text-sm text-gray-700">
-            <strong className="text-primary">Offres en préparation.</strong> La facturation n'est pas
-            encore active et les fonctionnalités listées ci-dessous décrivent les forfaits à venir.
-            L'application DSF Normale et SMT est aujourd'hui utilisable gratuitement, sans compte,
-            avec un stockage local sur votre poste.
-          </div>
         </div>
-        
-        <div className="flex justify-center mb-12">
-          <div className="inline-flex rounded-md overflow-hidden">
-            <button className={`pricing-tab ${activePeriod === 'standard' ? 'active' : ''}`} onClick={() => setActivePeriod('standard')}>
-              Standard
-            </button>
-            <button className={`pricing-tab ${activePeriod === 'premium' ? 'active' : ''}`} onClick={() => setActivePeriod('premium')}>
-              Premium
-            </button>
+
+        <div className="mx-auto max-w-md bg-white rounded-lg shadow-md p-8 border-2 border-accent">
+          <h3 className="text-xl font-bold text-primary mb-2">Gratuit</h3>
+          <div className="text-4xl font-bold text-primary-dark mb-6">
+            0 <span className="text-base font-normal text-gray-500">F CFA</span>
           </div>
+          <ul className="space-y-3 mb-8">
+            {included.map((item) => (
+              <li key={item} className="flex items-start">
+                <Check className="text-accent mr-2 mt-0.5 w-5 h-5 shrink-0" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          <Link to="/app">
+            <Button className="w-full bg-accent hover:bg-secondary">Ouvrir l'application</Button>
+          </Link>
         </div>
-        
-        <div className="flex flex-wrap justify-center gap-8">
-          {/* Starter Plan */}
-          <div className="w-full md:w-72 bg-white rounded-lg shadow-md p-6 transition-transform hover:scale-105">
-            <h3 className="text-xl font-bold text-primary mb-4">Starter</h3>
-            <div className="text-4xl font-bold text-primary-dark mb-1">
-              50 000 <span className="text-base font-normal text-gray-500">F CFA/an</span>
-            </div>
-            <div className="h-64 py-6">
-              <div className="mb-3 flex items-center">
-                <Check className="text-accent mr-2 w-5 h-5" />
-                <span>1 entreprise</span>
-              </div>
-              <div className="mb-3 flex items-center">
-                <Check className="text-accent mr-2 w-5 h-5" />
-                <span>DSF SMT uniquement</span>
-              </div>
-              <div className="mb-3 flex items-center">
-                <Check className="text-accent mr-2 w-5 h-5" />
-                <span>Importation de données</span>
-              </div>
-              <div className="mb-3 flex items-center">
-                <Check className="text-accent mr-2 w-5 h-5" />
-                <span>Export XLSX</span>
-              </div>
-              <div className="mb-3 flex items-center">
-                <X className="text-gray-400 mr-2 w-5 h-5" />
-                <span className="text-gray-500">Archivage limité (1 an)</span>
-              </div>
-            </div>
-            <Link to="/app">
-              <Button className="w-full">Utiliser gratuitement</Button>
-            </Link>
-          </div>
-          
-          {/* Business Plan */}
-          <div className="w-full md:w-72 bg-white rounded-lg shadow-md p-6 border-2 border-accent relative transition-transform hover:scale-105">
-            <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-accent text-white px-4 py-1 rounded-full text-sm font-semibold">
-              Plus populaire
-            </div>
-            <h3 className="text-xl font-bold text-primary mb-4">Business</h3>
-            <div className="text-4xl font-bold text-primary-dark mb-1">
-              125 000 <span className="text-base font-normal text-gray-500">F CFA/an</span>
-            </div>
-            <div className="h-64 py-6">
-              <div className="mb-3 flex items-center">
-                <Check className="text-accent mr-2 w-5 h-5" />
-                <span>Jusqu'à 3 entreprises</span>
-              </div>
-              <div className="mb-3 flex items-center">
-                <Check className="text-accent mr-2 w-5 h-5" />
-                <span>DSF Normale et SMT</span>
-              </div>
-              <div className="mb-3 flex items-center">
-                <Check className="text-accent mr-2 w-5 h-5" />
-                <span>Importation de données</span>
-              </div>
-              <div className="mb-3 flex items-center">
-                <Check className="text-accent mr-2 w-5 h-5" />
-                <span>Export XLSX</span>
-              </div>
-              <div className="mb-3 flex items-center">
-                <Check className="text-accent mr-2 w-5 h-5" />
-                <span>Archivage illimité</span>
-              </div>
-              <div className="mb-3 flex items-center">
-                <Check className="text-accent mr-2 w-5 h-5" />
-                <span>Support prioritaire</span>
-              </div>
-            </div>
-            <Link to="/app">
-              <Button className="w-full bg-accent hover:bg-secondary">Utiliser gratuitement</Button>
-            </Link>
-          </div>
-          
-          {/* Enterprise Plan */}
-          <div className="w-full md:w-72 bg-white rounded-lg shadow-md p-6 transition-transform hover:scale-105">
-            <h3 className="text-xl font-bold text-primary mb-4">Enterprise</h3>
-            <div className="text-4xl font-bold text-primary-dark mb-1">
-              <a href={buildMailtoLink("DSFacile — Offre Enterprise", "Bonjour,\n\nJe souhaite des informations sur l'offre Enterprise de DSFacile.\n\nEntreprise :\nBesoin :\n")}>
-                <Button
-                  variant="outline"
-                  className="w-full border-primary text-primary hover:bg-primary hover:text-white"
-                >
-                  Contacter notre équipe
-                </Button>
-              </a>
-            </div>
-            <div className="h-64 py-6">
-              <div className="mb-3 flex items-center">
-                <Check className="text-accent mr-2 w-5 h-5" />
-                <span>Entreprises illimitées</span>
-              </div>
-              <div className="mb-3 flex items-center">
-                <Check className="text-accent mr-2 w-5 h-5" />
-                <span>DSF Normale et SMT</span>
-              </div>
-              <div className="mb-3 flex items-center">
-                <Check className="text-accent mr-2 w-5 h-5" />
-                <span>Importation de données</span>
-              </div>
-              <div className="mb-3 flex items-center">
-                <Check className="text-accent mr-2 w-5 h-5" />
-                <span>Export XLSX</span>
-              </div>
-              <div className="mb-3 flex items-center">
-                <Check className="text-accent mr-2 w-5 h-5" />
-                <span>Archivage illimité</span>
-              </div>
-              <div className="mb-3 flex items-center">
-                <Check className="text-accent mr-2 w-5 h-5" />
-                <span>Support dédié</span>
-              </div>
-              <div className="mb-3 flex items-center">
-                <Check className="text-accent mr-2 w-5 h-5" />
-                <span>API pour intégration</span>
-              </div>
-            </div>
-          </div>
-        </div>
+
+        <p className="mt-8 text-center text-gray-600">
+          Vous êtes un cabinet comptable ou vous préparez les DSF de plusieurs entreprises ?{" "}
+          <a
+            href={buildMailtoLink("DSFacile — Cabinet comptable", "Bonjour,\n\nJe souhaite échanger sur l'utilisation de DSFacile pour mon cabinet.\n\nCabinet :\nNombre de dossiers :\nBesoin :\n")}
+            className="text-secondary underline hover:text-primary"
+          >
+            Écrivez-nous
+          </a>
+          .
+        </p>
       </div>
     </section>
   );
