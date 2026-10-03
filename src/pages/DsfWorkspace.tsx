@@ -6,7 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { calculateSummary, clearDeclaration, createDeclaration, createLine, DsfDeclaration, DsfLine, DsfMode, exportDeclarationToXlsx, formatCurrency, kindLabels, LineKind, loadDeclaration, modeLabels, normalizeDeclaration, numberValue, parseCsv, saveDeclaration, sections, validateDeclaration } from "@/features/dsf";
+import { cn } from "@/lib/utils";
+import { calculateSummary, clearDeclaration, createDeclaration, createLine, DsfDeclaration, DsfLine, DsfMode, exportDeclarationToXlsx, formatCurrency, kindLabels, LineKind, loadDeclaration, modeLabels, normalizeDeclaration, numberValue, parseCsv, saveDeclaration, sections, validateDeclaration, ValidationIssue } from "@/features/dsf";
 
 interface DsfWorkspaceProps {
   mode: DsfMode;
@@ -21,6 +22,7 @@ const DsfWorkspace = ({ mode }: DsfWorkspaceProps) => {
   const { toast } = useToast();
   const [declaration, setDeclaration] = useState<DsfDeclaration>(() => loadDeclaration(mode));
   const [csvPreview, setCsvPreview] = useState("");
+  const [csvIssues, setCsvIssues] = useState<ValidationIssue[]>([]);
 
   const summary = useMemo(() => calculateSummary(declaration), [declaration]);
   const issues = useMemo(() => validateDeclaration(declaration), [declaration]);
@@ -29,6 +31,7 @@ const DsfWorkspace = ({ mode }: DsfWorkspaceProps) => {
   useEffect(() => {
     setDeclaration(loadDeclaration(mode));
     setCsvPreview("");
+    setCsvIssues([]);
   }, [mode]);
 
   useEffect(() => {
@@ -61,6 +64,7 @@ const DsfWorkspace = ({ mode }: DsfWorkspaceProps) => {
     clearDeclaration(mode);
     setDeclaration(createDeclaration(mode));
     setCsvPreview("");
+    setCsvIssues([]);
     toast({ title: "Brouillon réinitialisé", description: `Un nouveau dossier ${modeLabels[mode]} vierge a été créé.` });
   };
 
@@ -94,7 +98,9 @@ const DsfWorkspace = ({ mode }: DsfWorkspaceProps) => {
 
   const importCsvContent = (value: string) => {
     setCsvPreview(value);
-    const lines = parseCsv(mode, value);
+    const { lines, issues: importIssues } = parseCsv(mode, value);
+    const rejected = importIssues.some((issue) => issue.severity === "error");
+    setCsvIssues(rejected ? [{ severity: "error", message: "Import non appliqué : corrigez le CSV ci-dessus. Les lignes actuelles sont conservées." }, ...importIssues] : importIssues);
     if (lines.length > 0) setDeclaration((current) => ({ ...current, lines, updatedAt: new Date().toISOString() }));
   };
 
@@ -138,7 +144,7 @@ const DsfWorkspace = ({ mode }: DsfWorkspaceProps) => {
           {mode === "normal" ? (
             <>
               <Metric title="Total actif" value={formatCurrency(summary.assets)} helper={`Écart: ${formatCurrency(summary.balanceGap)}`} />
-              <Metric title="Passif + résultat" value={formatCurrency(summary.liabilities + summary.netIncome)} helper="Passif + résultat" />
+              <Metric title="Passif + résultat" value={formatCurrency(summary.totalLiabilities)} helper={summary.balanceSheetResult === null ? "Passif + résultat calculé" : "Passif, résultat CJ inclus"} />
               <Metric title="Produits" value={formatCurrency(summary.revenue)} helper="Compte de résultat" />
               <Metric title="Résultat net" value={formatCurrency(summary.netIncome)} helper="Produits - charges" />
             </>
@@ -199,7 +205,7 @@ const DsfWorkspace = ({ mode }: DsfWorkspaceProps) => {
                   <tr key={line.id} className="border-b">
                     <td className="p-2"><select className="w-full rounded-md border p-2" value={line.kind} onChange={(event) => updateLine(line.id, "kind", event.target.value)}>{availableKinds[mode].map((kind) => <option key={kind} value={kind}>{kindLabels[kind]}</option>)}</select></td>
                     <td className="p-2"><Input value={line.code} onChange={(event) => updateLine(line.id, "code", event.target.value)} /></td>
-                    <td className="p-2"><select className="w-full rounded-md border p-2" value={line.section} onChange={(event) => updateLine(line.id, "section", event.target.value)}>{sections[line.kind].map((section) => <option key={section} value={section}>{section}</option>)}</select></td>
+                    <td className="p-2"><select className={cn("w-full rounded-md border p-2", !sections[line.kind].includes(line.section) && "border-red-500 text-red-700")} value={line.section} onChange={(event) => updateLine(line.id, "section", event.target.value)}>{!sections[line.kind].includes(line.section) ? <option value={line.section} disabled>{line.section} (à corriger)</option> : null}{sections[line.kind].map((section) => <option key={section} value={section}>{section}</option>)}</select></td>
                     <td className="p-2"><Input value={line.label} onChange={(event) => updateLine(line.id, "label", event.target.value)} /></td>
                     <td className="p-2"><Input type="number" value={line.current} onChange={(event) => updateLine(line.id, "current", numberValue(event.target.value))} /></td>
                     <td className="p-2"><Input type="number" value={line.previous} onChange={(event) => updateLine(line.id, "previous", numberValue(event.target.value))} disabled={mode === "smt"} /></td>
@@ -217,6 +223,7 @@ const DsfWorkspace = ({ mode }: DsfWorkspaceProps) => {
           <div className="rounded-lg bg-white p-6 shadow">
             <div className="mb-4 flex items-center justify-between gap-3"><div><h2 className="text-xl font-semibold text-primary">Import CSV</h2><p className="text-sm text-gray-600">Format compatible avec le modèle téléchargeable.</p></div><div className="flex gap-2"><label className="inline-flex cursor-pointer items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground"><Upload className="mr-2 h-4 w-4" /> Importer<input type="file" accept=".csv,text/csv" className="sr-only" onChange={importCsvFile} /></label><Button variant="outline" onClick={downloadTemplate}><Download className="mr-2 h-4 w-4" /> Modèle</Button></div></div>
             <Textarea className="min-h-[180px] font-mono text-xs" value={csvPreview} onChange={(event) => importCsvContent(event.target.value)} placeholder={mode === "normal" ? "asset;AD;Actif immobilisé;Immobilisations;1500000;1200000;;" : "receipt;;Ventes encaissées;Encaissement client;250000;0;2025-01-15;FAC-001"} />
+            {csvIssues.length > 0 ? <div className="mt-4 space-y-2">{csvIssues.map((issue) => <div key={issue.message} className={`rounded-md border p-3 text-sm ${issueClass(issue.severity)}`}><div className="flex gap-2"><AlertCircle className="mt-0.5 h-4 w-4 shrink-0" /><span>{issue.message}</span></div></div>)}</div> : null}
           </div>
           <div className="rounded-lg bg-white p-6 shadow"><h2 className="text-xl font-semibold text-primary">Export XLSX intégré</h2><p className="mt-2 text-gray-600">Le classeur généré contient identification, tableaux métier, synthèse, contrôles et empreinte de contrôle.</p><Button className="mt-5 bg-primary" onClick={exportWorkbook} disabled={blocking}><FileSpreadsheet className="mr-2 h-4 w-4" /> Générer la liasse XLSX</Button></div>
         </section>

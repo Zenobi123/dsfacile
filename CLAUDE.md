@@ -36,14 +36,14 @@ DSFacile is a **fully client-side** React 18 + Vite + TypeScript app — no back
 
 All DSF domain logic lives in a **single flat file** (no sub-modules). It is entirely pure/functional — no React, no side effects except `localStorage` and browser download APIs. Key exports:
 
-- **Types**: `DsfMode` (`"normal" | "smt"`), `DsfLine`, `DsfDeclaration`, `CompanyProfile`, `DsfSummary`, `ValidationIssue`
+- **Types**: `DsfMode` (`"normal" | "smt"`), `DsfLine`, `DsfDeclaration`, `CompanyProfile`, `DsfSummary`, `ValidationIssue`, `CsvImport`
 - **`createDeclaration(mode)`** — factory for a blank declaration
 - **`createLine(kind, code?, label?)`** — factory for a single financial line
-- **`normalizeDeclaration(declaration)`** — canonicalises amounts (rounds to integer), uppercases codes/NIU, resets invalid section names; **call before any calculation or export**
-- **`calculateSummary(declaration)`** — returns totals and gap indicators (balance gap, cash gap)
+- **`normalizeDeclaration(declaration)`** — canonicalises amounts (rounds to integer), uppercases codes/NIU, maps section names to the official list ignoring accents/case; unknown sections are kept so `validateDeclaration` flags them; **call before any calculation or export**
+- **`calculateSummary(declaration)`** — returns totals and gap indicators (balance gap, cash gap). The net result is added to the passif only when no liability line carries code `CJ` (résultat net); a `CJ` line may be negative (loss) and must equal the compte de résultat result
 - **`validateDeclaration(declaration)`** — returns `ValidationIssue[]`; errors block XLSX export, warnings appear in the workbook
 - **`loadDeclaration(mode)` / `saveDeclaration(declaration)` / `clearDeclaration(mode)`** — localStorage persistence keyed `dsfacile:<mode>:declaration:v1`
-- **`parseCsv(mode, csv)`** — parses semicolon-delimited CSV into `DsfLine[]`; first row is skipped if it starts with `type;` or `etat;`
+- **`parseCsv(mode, csv)`** — parses semicolon-delimited CSV into `{ lines, issues }`; first row is skipped if it starts with `type;` or `etat;`. Unknown types and unreadable amounts (`parseAmount` handles French/English separators, `FCFA`, parentheses, exponents) are reported as errors, and any error makes the import all-or-nothing: `lines` is then empty so no wrong amount reaches the export
 - **`exportDeclarationToXlsx(declaration)`** — generates a real XLSX (Open XML) **from scratch** in-browser using a hand-rolled ZIP/CRC32 implementation; triggers a browser download
 
 The XLSX generator has **no external dependency** — it constructs the ZIP bytes manually. Do not introduce `xlsx` / `exceljs` libraries unless the hand-rolled approach is being replaced entirely.
