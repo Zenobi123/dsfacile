@@ -4,32 +4,32 @@ const features = [
   {
     icon: FileText,
     title: "DSF Système Normal & SMT",
-    description: "Génération automatique des DSF conformes aux modèles officiels de la DGI, pour le Système Normal et le SMT."
+    description: "Deux espaces de saisie distincts : bilan et compte de résultat pour le Système Normal, recettes et dépenses pour le Système Minimal de Trésorerie."
   },
   {
     icon: Upload,
-    title: "Import de données",
-    description: "Importez facilement vos balances comptables et autres données financières depuis Excel ou CSV."
+    title: "Import CSV",
+    description: "Importez vos lignes depuis un fichier CSV à partir du modèle téléchargeable, ou saisissez-les directement dans l'application."
   },
   {
     icon: Calculator,
     title: "Calculs automatiques",
-    description: "Les totaux, sous-totaux et reports sont calculés automatiquement, réduisant les risques d'erreur."
+    description: "Totaux, résultat de l'exercice et soldes de trésorerie sont recalculés à chaque modification, ce qui réduit les erreurs de report."
   },
   {
     icon: CheckCircle,
-    title: "Contrôles de cohérence",
-    description: "Vérifications automatiques pour garantir la cohérence entre les différents tableaux de la liasse fiscale."
+    title: "Contrôles avant export",
+    description: "Contrôle d'équilibre du bilan, contrôle de caisse et champs obligatoires : les erreurs bloquent l'export, les avertissements restent visibles."
   },
   {
     icon: Download,
     title: "Export XLSX",
-    description: "Générez des documents XLSX prêts à l'emploi, conformes aux exigences de présentation de la DGI."
+    description: "Générez un classeur de préparation et de revue interne. Il doit être confronté aux modèles officiels de la DGI avant tout dépôt."
   },
   {
     icon: Shield,
-    title: "Sécurité des données",
-    description: "Vos données financières sont chiffrées et sécurisées, avec un accès strictement contrôlé."
+    title: "Données locales",
+    description: "Vos données ne quittent jamais votre navigateur : tout est enregistré sur votre poste, sans compte ni transmission à un serveur."
   }
 ];
 

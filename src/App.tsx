@@ -8,9 +8,13 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
 const Login = lazy(() => import("./pages/Login"));
-const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
 const DsfHome = lazy(() => import("./pages/DsfHome"));
 const DsfWorkspace = lazy(() => import("./pages/DsfWorkspace"));
+
+// Le tableau de bord d'administration n'a aucune authentification et n'affiche que des
+// données factices : il reste accessible en développement, jamais dans un build de production.
+// Le ternaire est évalué au build, ce qui retire aussi son chunk du bundle publié.
+const AdminDashboard = import.meta.env.DEV ? lazy(() => import("./pages/admin/AdminDashboard")) : null;
 
 const queryClient = new QueryClient();
 
@@ -27,7 +31,7 @@ const App = () => (
             <Route path="/app" element={<DsfHome />} />
             <Route path="/app/normal" element={<DsfWorkspace mode="normal" />} />
             <Route path="/app/smt" element={<DsfWorkspace mode="smt" />} />
-            <Route path="/admin" element={<AdminDashboard />} />
+            {AdminDashboard ? <Route path="/admin" element={<AdminDashboard />} /> : null}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

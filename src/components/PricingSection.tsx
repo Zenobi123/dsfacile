@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Check, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { buildMailtoLink } from "@/lib/contact";
 
 const PricingSection = () => {
   const [activePeriod, setActivePeriod] = useState('standard');
@@ -14,6 +15,12 @@ const PricingSection = () => {
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Des forfaits adaptés à toutes les tailles d'entreprises
           </p>
+          <div className="mt-6 mx-auto max-w-3xl rounded-lg border border-secondary/40 bg-secondary/10 px-6 py-4 text-left text-sm text-gray-700">
+            <strong className="text-primary">Offres en préparation.</strong> La facturation n'est pas
+            encore active et les fonctionnalités listées ci-dessous décrivent les forfaits à venir.
+            L'application DSF Normale et SMT est aujourd'hui utilisable gratuitement, sans compte,
+            avec un stockage local sur votre poste.
+          </div>
         </div>
         
         <div className="flex justify-center mb-12">
@@ -56,8 +63,8 @@ const PricingSection = () => {
                 <span className="text-gray-500">Archivage limité (1 an)</span>
               </div>
             </div>
-            <Link to="/login">
-              <Button className="w-full">Commencer</Button>
+            <Link to="/app">
+              <Button className="w-full">Utiliser gratuitement</Button>
             </Link>
           </div>
           
@@ -96,8 +103,8 @@ const PricingSection = () => {
                 <span>Support prioritaire</span>
               </div>
             </div>
-            <Link to="/login">
-              <Button className="w-full bg-accent hover:bg-secondary">Commencer</Button>
+            <Link to="/app">
+              <Button className="w-full bg-accent hover:bg-secondary">Utiliser gratuitement</Button>
             </Link>
           </div>
           
@@ -105,12 +112,14 @@ const PricingSection = () => {
           <div className="w-full md:w-72 bg-white rounded-lg shadow-md p-6 transition-transform hover:scale-105">
             <h3 className="text-xl font-bold text-primary mb-4">Enterprise</h3>
             <div className="text-4xl font-bold text-primary-dark mb-1">
-              <Button 
-                variant="outline" 
-                className="w-full border-primary text-primary hover:bg-primary hover:text-white"
-              >
-                Contacter notre équipe
-              </Button>
+              <a href={buildMailtoLink("DSFacile — Offre Enterprise", "Bonjour,\n\nJe souhaite des informations sur l'offre Enterprise de DSFacile.\n\nEntreprise :\nBesoin :\n")}>
+                <Button
+                  variant="outline"
+                  className="w-full border-primary text-primary hover:bg-primary hover:text-white"
+                >
+                  Contacter notre équipe
+                </Button>
+              </a>
             </div>
             <div className="h-64 py-6">
               <div className="mb-3 flex items-center">
